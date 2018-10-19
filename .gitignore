@@ -8,8 +8,9 @@ Config/secrets
 Packages
 .build
 xcuserdata
-*.xcodeproj
+#*.xcodeproj
 DerivedData/
 .DS_Store
+Public/images/doggos
 
 # End of https://www.gitignore.io/api/vapor

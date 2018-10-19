@@ -1,9 +1,33 @@
-#set("title") { It works }
+#set("title") { Corgo or Husker }
 
 #set("body") {
-	<div class="welcome">
-		<img src="/images/it-works.png">
-	</div>
+    <div class="welcome">
+        <h1>Corgos</h1>
+
+        <table>
+            #for(dogpic in images) {
+                #if(index % perRow == 0) {
+                    #if(!isFirst) {
+                    </tr>
+                    }
+                }
+
+                #if(index % perRow == 0 ) {
+                    <tr>
+                }
+<td><img src="/images/doggos/#(dogpic.m_path)">#(dogpic.m_breed)</td>
+                #if(isLast) {
+                    </tr>
+                }
+            }
+        </table>
+        <div class="form-group">
+            <form action="/upload" method="POST" enctype="multipart/form-data" id="upload-form">
+                <input type="file" accept="image/png,image/jpg" name="image">
+                <input class="btn btn-success btn-block" type="submit" value="upload">
+            </form>
+        </div>
+    </div>
 }
 
 #embed("base")
