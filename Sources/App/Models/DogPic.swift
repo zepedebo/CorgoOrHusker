@@ -14,11 +14,11 @@ final class DogPic:  SQLiteModel {
     
     init(id: Int? = nil, path: String, breed: String) {
         self.id = id
-        m_path = path
-        m_breed = breed
+        self.path = path
+        self.breed = breed
     }
-    var m_path: String
-    var m_breed: String
+    var path: String
+    var breed: String
 }
 
 extension DogPic: Content {}
@@ -26,12 +26,16 @@ extension DogPic: Migration {}
 
 func GetPics() -> [DogPic] {
     let workdir = URL(fileURLWithPath: DirectoryConfig.detect().workDir)
-    let imageDir = workdir.appendingPathComponent("Public", isDirectory: true).appendingPathComponent("images", isDirectory:true).appendingPathComponent("doggos")
+    let imageDir = workdir.appendingPathComponent("Public", isDirectory: true)
+        .appendingPathComponent("images", isDirectory:true)
+        .appendingPathComponent("doggos")
 
     let fm = FileManager.default;
     do {
         let imgs = try fm.contentsOfDirectory(at: imageDir, includingPropertiesForKeys: [], options: .skipsHiddenFiles)
-        return imgs.map{return DogPic(path: $0.lastPathComponent.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? "" , breed: "Unknown")}
+        return imgs.map{
+            return DogPic(path: $0.lastPathComponent.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? "" , breed: "Unknown")
+        }
         
     } catch {
         return [];
